@@ -1,0 +1,13 @@
+#fulcrum-singlebanner {
+
+    width:100%;
+    height: 501px;
+    background: url(../images/magento2_banner.png) no-repeat;
+}
+
+#fulcrum-singlebanner .html_content {
+    position: absolute;
+    width: 400px;
+    height: inherit;
+    margin-left: 20px;
+}

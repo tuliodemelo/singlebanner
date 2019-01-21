@@ -1,0 +1,67 @@
+version: '2'
+
+services:
+## MAIN SERVICES ##
+    percona:
+        image: percona
+        restart: always
+        volumes:
+            - ./docker/mysql/data/percona:/var/lib/mysql
+            - ./docker/mysql/dumps:/dumps
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=fulcrum
+            - MYSQL_USER=tulio
+            - MYSQL_PASSWORD=tulio
+        networks:
+            - network-back
+
+    redis:
+        image: redis
+        restart: always
+        ports:
+          - 6379:6379
+        networks:
+            - network-back
+            
+    phpfpm:
+      build: docker/phpfpm
+      restart: always
+      volumes:
+          - ./src:/src/www
+          - ./docker/setup-mage.sh:/src/setup-mage.sh
+      #command: ["/src/run.sh"]
+      environment:
+          - MAGE_SETUP_DB_HOST=percona
+          - MAGE_SETUP_DB_NAME=fulcrum
+          - MAGE_SETUP_DB_USER=tulio
+          - MAGE_SETUP_DB_PASSWORD=tulio
+          - MAGE_SETUP_BASE_URL=http://fulcrum.magento/
+          - MAGE_SETUP_ADMIN_BACKEND_FRONTNAME=admin
+          - MAGE_SETUP_ADMIN_FIRSTNAME=Owner
+          - MAGE_SETUP_ADMIN_LASTNAME=Mage
+          - MAGE_SETUP_ADMIN_EMAIL=owner@mage.com
+          - MAGE_SETUP_ADMIN_USER=admin
+          - MAGE_SETUP_ADMIN_PASSWORD=12345qw
+      links:  # o link define a ordem de build ;)
+        - percona
+      networks:
+          - network-back
+
+    web:
+        build: docker/nginx
+        restart: always
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - ./src:/src/www
+        links:  # o link define a ordem de build ;)
+           - phpfpm
+           - percona
+        networks:
+            - network-back
+
+networks:
+    network-back:
+        driver: bridge

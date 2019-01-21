@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * Template to show the banner.
+ *
+ * @var $block \Fulcrum\Banner\Block\SingleBanner
+ */
+$banner = $block->getActiveBanner();
+$isConfigEnabled = $block->isConfigEnabled();
+
+?>
+
+<?php if($banner && $isConfigEnabled): ?>
+    <div id="fulcrum-singlebanner">
+        <div class="html_content"><?php echo $banner->getHtmlContent(); ?></div>
+    </div>
+<?php endif; ?>

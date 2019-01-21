@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Fulcrum_Banner::css/singlebanner.css" />
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Fulcrum\Banner\Block\SingleBanner" name="fulcrum.single.banner" before="-">
+            	<action method="setPosition">
+            		<argument name="position" xsi:type="string">cms-page-content-top</argument>
+            	</action>
+                <action method="setTemplate">
+                    <argument name="template" xsi:type="string">Fulcrum_Banner::singlebanner.phtml</argument>
+                </action>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

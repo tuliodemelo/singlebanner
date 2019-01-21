@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+    	<add id="Fulcrum_Banner::banner" title="Fulcrum Banner" module="Fulcrum_Banner" sortOrder="10" resource="Fulcrum_Banner::banner" parent="Magento_Backend::content"/>
+        <add id="Fulcrum_Banner::banner_index" title="Manage Banners" module="Fulcrum_Banner" sortOrder="10" parent="Fulcrum_Banner::banner" action="banners/banner/index" resource="Fulcrum_Banner::banner_index"/>
+        <add id="Fulcrum_Banner::settings" title="Settings" module="Fulcrum_Banner" sortOrder="20" parent="Fulcrum_Banner::banner" action="adminhtml/system_config/edit/section/banner" resource="Fulcrum_Banner::settings"/>
+    </menu>
+</config>
